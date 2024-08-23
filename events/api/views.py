@@ -5,14 +5,11 @@ from .serializers import EventSerializer, RSVPSerializer, CommentSerializer
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 class RSVPViewSet(viewsets.ModelViewSet):
     queryset = RSVP.objects.all()
     serializer_class = RSVPSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticated]

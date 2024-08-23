@@ -3,8 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from config import Config
 from flask_mail import Mail, Message
 import secrets
-import mailslurp_client
-from mailslurp_client import ApiClient, Configuration, InboxControllerApi
 
 db = SQLAlchemy()
 mail = Mail()
@@ -13,7 +11,6 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # provided by mailtrap for testing
     app.config['MAIL_SERVER']=''
     app.config['MAIL_PORT'] = 2525
     app.config['MAIL_USERNAME'] = ''
@@ -36,30 +33,37 @@ def create_mail_service(app):
     return Mail(app)
 
 def send_notification(event, action):
-    # using mailslurp for testing
-    configuration = Configuration()
-    configuration.api_key['x-api-key'] = ''
-
-    with ApiClient(configuration) as api_client:
-        inbox_controller = InboxControllerApi(api_client)
-        inbox = inbox_controller.create_inbox()
-        test_email = inbox.email_address
-
     subject = f"Event {action.capitalize()}: {event.title}"
-    body = f"The event '{event.title}' has been {action}.\n\n" \
-           f"Description: {event.description}\n" \
-           f"Date: {event.date}\n" \
-           f"Location: {event.location}"
 
-    recipients = ['taya@gmail.com']
+    body = f"""
+    <html>
+    <body style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+            <h2 style="text-align: center;">🎉 Event Update: {event.title} 🎉</h2>
+            <p>Hey there!</p>
+            <p>Just wanted to give you a quick heads-up that the event <strong>'{event.title}'</strong> has been <strong>{action}</strong>! 😃</p>
+            <p>Here's the lowdown:</p>
+            <ul>
+                <li><strong>Description:</strong> {event.description}</li>
+                <li><strong>Date:</strong> {event.date}</li>
+                <li><strong>Location:</strong> {event.location}</li>
+            </ul>
+            <p>Don't miss out on all the fun! Make sure to RSVP by clicking <a href="http://127.0.0.1:8000/api/v1/rsvp/{event.id}" style="color: #1a73e8;">here</a> 🚀.</p>
+            <p>Can't wait to see you there! If you have any questions or need anything, just hit me up.</p>
+            <p>Cheers,</p>
+            <p>Your Event Team 🌟</p>
+        </div>
+    </body>
+    </html>
+    """
+
+    recipients = ['brett@gmail.com']
 
     msg = Message(subject=subject,
-                  body=body,
+                  html=body,
                   recipients=recipients,
                   sender='tayaevents@gmail.com')
     mail.send(msg)
-
-    print(f"Notification sent to test email: {test_email}")
 
 def gen_token():
     token_len = 32
