@@ -11,10 +11,10 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    app.config['MAIL_SERVER']=''
+    app.config['MAIL_SERVER']='sandbox.smtp.mailtrap.io'
     app.config['MAIL_PORT'] = 2525
-    app.config['MAIL_USERNAME'] = ''
-    app.config['MAIL_PASSWORD'] = ''
+    app.config['MAIL_USERNAME'] = '8470b5f41b65ad'
+    app.config['MAIL_PASSWORD'] = '2eb2fa65b9385b'
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USE_SSL'] = False
 

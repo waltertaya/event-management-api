@@ -52,6 +52,12 @@ def register_routes(app):
         db.session.commit()
         send_notification(new_event, 'created')
         return jsonify(new_event.to_dict()), 201
+    
+    @app.route('/events', methods=['GET'])
+    @auth.login_required
+    def get_events():
+        events = Event.query.all()
+        return jsonify([event.to_dict() for event in events]), 200
 
     @app.route('/events/<int:event_id>', methods=['PUT'])
     @auth.login_required
