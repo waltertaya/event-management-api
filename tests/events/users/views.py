@@ -12,6 +12,8 @@ class RegisterAPIView(generics.CreateAPIView):
     queryset = UserProfile.objects.all()
     serializer_class = UserSerializer
 
+    # the route authentication by token or any other method
+    permission_classes = []
     def create(self, request, *args, **kwargs):
         user_data = {
             'username': request.data.get('username'),
@@ -42,6 +44,8 @@ class RegisterAPIView(generics.CreateAPIView):
 
 
 class LoginAPIView(APIView):
+
+    permission_classes = []
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')

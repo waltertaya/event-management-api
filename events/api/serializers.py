@@ -1,17 +1,28 @@
 from rest_framework import serializers
-from .models import Event, RSVP, Comment
+from django.contrib.auth.models import User
+
+from .models import Event, Rsvp, Comment
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = User
+        fields = ['id', 'username', 'password', 'email']
+
 
 class EventSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Event
-        fields = '__all__'
+        fields = ['id', 'title', 'description', 'date', 'location']
 
-class RSVPSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RSVP
-        fields = '__all__'
+
+class RsvpSerializer(serializers.ModelSerializer):
+    class Meta(object):
+        model = Rsvp
+        fields = ['id', 'user', 'event', 'response']
+
 
 class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Comment
-        fields = '__all__'
+        fields = ['id', 'user', 'event', 'comment', 'created_at']
