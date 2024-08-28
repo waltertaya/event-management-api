@@ -30,7 +30,7 @@ Content-Type: application/json
 Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
 
 {
-    "event": 2,
+    "event": 3,
     "response": "True"
 }
 
@@ -42,30 +42,25 @@ Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
 
 ###
 
-GET http://localhost:8000/api/rsvp/1/
+GET http://localhost:8000/api/rsvp/2/
 Content-Type: application/json
 Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
 
 ###
 
-PUT http://localhost:8000/api/rsvp/1/
+PUT http://localhost:8000/api/rsvp/2/
 Content-Type: application/json
 Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
 
 {
-    "response": "True"
+    "response": "False"
 }
 
 ###
 
-DELETE http://localhost:8000/api/rsvp/1/
+DELETE http://localhost:8000/api/rsvp/2/
 Content-Type: application/json
 Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
-
-###
-
-GET http://localhost:8000/api/comments/
-Content-Type: application/json
 
 ###
 
@@ -86,7 +81,7 @@ Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
 
 ###
 
-PUT http://localhost:8000/api/comment/1/
+PUT http://localhost:8000/api/comment/3/
 Content-Type: application/json
 Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
 
@@ -96,6 +91,6 @@ Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
 
 ###
 
-DELETE http://localhost:8000/api/comment/2/
+DELETE http://localhost:8000/api/comment/1/
 Content-Type: application/json
 Authorization: Token 86403076e80f19c5ed30cff52d00a6bd74838a4c
